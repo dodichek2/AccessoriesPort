@@ -19,38 +19,56 @@ public class GuiCosmeticArmor extends GuiContainer {
         this.ySize = 166;
     }
 
-    @Override public void initGui() {
+    @Override
+    public void initGui() {
         super.initGui();
         CosmeticArmorData data = CosmeticArmorData.get(player);
-        displayButton = new GuiButton(0, guiLeft + 94, guiTop + 8, 74, 20, buttonText(data != null && data.shouldShowFunctionalArmorWhenEmpty()));
+
+        // Keep the toggle fully inside the 176px-wide GUI.
+        displayButton = new GuiButton(0, guiLeft + 104, guiTop + 8, 64, 18,
+            buttonText(data != null && data.shouldShowFunctionalArmorWhenEmpty()));
         buttonList.add(displayButton);
     }
 
-    private String buttonText(boolean show) { return show ? "Vanilla: ON" : "Vanilla: OFF"; }
+    private String buttonText(boolean show) {
+        return show ? "Show: ON" : "Show: OFF";
+    }
 
-    @Override protected void actionPerformed(GuiButton button) {
+    @Override
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             CosmeticArmorData data = CosmeticArmorData.get(player);
             if (data != null) {
                 data.setShowFunctionalArmorWhenEmpty(!data.shouldShowFunctionalArmorWhenEmpty());
                 displayButton.displayString = buttonText(data.shouldShowFunctionalArmorWhenEmpty());
-                AccessoriesPort.NETWORK.sendToServer(new ToggleCosmeticDisplayMessage(data.shouldShowFunctionalArmorWhenEmpty()));
+                AccessoriesPort.NETWORK.sendToServer(
+                    new ToggleCosmeticDisplayMessage(data.shouldShowFunctionalArmorWhenEmpty()));
             }
         }
     }
 
-    @Override protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        fontRendererObj.drawString("Cosmetic Armor", 28, 2, 0x404040);
-        fontRendererObj.drawString("Helmet", 30, 13, 0x404040);
-        fontRendererObj.drawString("Chest", 30, 35, 0x404040);
-        fontRendererObj.drawString("Leggings", 30, 57, 0x404040);
-        fontRendererObj.drawString("Boots", 30, 79, 0x404040);
+    private void drawFittedLabel(String text, int x, int y, int maxWidth) {
+        String fitted = fontRendererObj.trimStringToWidth(text, maxWidth);
+        fontRendererObj.drawString(fitted, x, y, 0x404040);
     }
 
-    @Override protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        // Short labels stay in the narrow strip between the cosmetic slots and preview.
+        drawFittedLabel("Head", 28, 13, 38);
+        drawFittedLabel("Chest", 28, 35, 38);
+        drawFittedLabel("Legs", 28, 57, 38);
+        drawFittedLabel("Feet", 28, 79, 38);
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.getTextureManager().bindTexture(BACKGROUND);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        GuiInventory.func_147046_a(guiLeft + 80, guiTop + 78, 30, (float)(guiLeft + 80) - mouseX, (float)(guiTop + 45) - mouseY, player);
+
+        // Move the preview right so it does not collide with the slot labels.
+        GuiInventory.func_147046_a(guiLeft + 112, guiTop + 78, 30,
+            (float)(guiLeft + 112) - mouseX, (float)(guiTop + 45) - mouseY, player);
     }
 }
