@@ -24,15 +24,15 @@ jobs:
           distribution: zulu
           java-version: '8'
 
-      - name: Set up Gradle 2.14.1
+      - name: Set up Gradle 4.4.1
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '2.14.1'
+          gradle-version: '4.4.1'
           cache-disabled: true
 
       - name: Build mod
         working-directory: AccessoriesPort-Forge1710
-        run: gradle --no-daemon setupDecompWorkspace build
+        run: gradle --no-daemon setupDecompWorkspace build --stacktrace
 
       - name: Upload mod JAR
         uses: actions/upload-artifact@v4
