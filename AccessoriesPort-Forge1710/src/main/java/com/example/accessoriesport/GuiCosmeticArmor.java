@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiCosmeticArmor extends GuiContainer {
     private static final ResourceLocation BACKGROUND = new ResourceLocation("accessoriesport", "textures/gui/cosmetic_armor.png");
     private final EntityPlayer player;
-    private GuiButton displayButton;
+    private IconGuiButton displayButton;
 
     public GuiCosmeticArmor(EntityPlayer player) {
         super(new CosmeticArmorContainer(player));
@@ -22,16 +22,11 @@ public class GuiCosmeticArmor extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-        CosmeticArmorData data = CosmeticArmorData.get(player);
-
-        // Keep the toggle fully inside the 176px-wide GUI.
-        displayButton = new GuiButton(0, guiLeft + 104, guiTop + 8, 64, 18,
-            buttonText(data != null && data.shouldShowFunctionalArmorWhenEmpty()));
+        // Eye of Ender icon toggles whether functional armor is rendered when
+        // the matching cosmetic slot is empty. The full button stays in-panel.
+        displayButton = new IconGuiButton(0, guiLeft + 148, guiTop + 7, 20, 20,
+            IconGuiButton.ICON_EYE);
         buttonList.add(displayButton);
-    }
-
-    private String buttonText(boolean show) {
-        return show ? "Show: ON" : "Show: OFF";
     }
 
     @Override
@@ -40,25 +35,19 @@ public class GuiCosmeticArmor extends GuiContainer {
             CosmeticArmorData data = CosmeticArmorData.get(player);
             if (data != null) {
                 data.setShowFunctionalArmorWhenEmpty(!data.shouldShowFunctionalArmorWhenEmpty());
-                displayButton.displayString = buttonText(data.shouldShowFunctionalArmorWhenEmpty());
                 AccessoriesPort.NETWORK.sendToServer(
                     new ToggleCosmeticDisplayMessage(data.shouldShowFunctionalArmorWhenEmpty()));
             }
         }
     }
 
-    private void drawFittedLabel(String text, int x, int y, int maxWidth) {
-        String fitted = fontRendererObj.trimStringToWidth(text, maxWidth);
-        fontRendererObj.drawString(fitted, x, y, 0x404040);
-    }
-
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        // Short labels stay in the narrow strip between the cosmetic slots and preview.
-        drawFittedLabel("Head", 28, 13, 38);
-        drawFittedLabel("Chest", 28, 35, 38);
-        drawFittedLabel("Legs", 28, 57, 38);
-        drawFittedLabel("Feet", 28, 79, 38);
+        // Keep labels short and inside the narrow left column.
+        fontRendererObj.drawString("Head", 28, 13, 0x404040);
+        fontRendererObj.drawString("Chest", 28, 35, 0x404040);
+        fontRendererObj.drawString("Legs", 28, 57, 0x404040);
+        fontRendererObj.drawString("Feet", 28, 79, 0x404040);
     }
 
     @Override
@@ -67,7 +56,6 @@ public class GuiCosmeticArmor extends GuiContainer {
         mc.getTextureManager().bindTexture(BACKGROUND);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-        // Move the preview right so it does not collide with the slot labels.
         GuiInventory.func_147046_a(guiLeft + 112, guiTop + 78, 30,
             (float)(guiLeft + 112) - mouseX, (float)(guiTop + 45) - mouseY, player);
     }
