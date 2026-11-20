@@ -17,7 +17,7 @@ public class CosmeticArmorContainer extends Container {
         // Cosmetic armor slots.
         for (int i = 0; i < 4; i++) {
             final int armorType = i;
-            addSlotToContainer(new Slot(cosmetic, i, 8, 8 + i * 22) {
+            addSlotToContainer(new Slot(cosmetic, i, 8, 8 + i * 18) {
                 @Override
                 public boolean isItemValid(ItemStack stack) {
                     return cosmetic.isItemValidForSlot(armorType, stack);
