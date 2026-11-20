@@ -22,7 +22,7 @@ public class IconGuiButton extends GuiButton {
     @Override
     public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
         super.drawButton(minecraft, mouseX, mouseY);
-        if (!drawButton) return;
+        if (!visible) return;
 
         int x = xPosition + (width - 15) / 2;
         int y = yPosition + (height - 15) / 2;
