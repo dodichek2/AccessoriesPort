@@ -45,9 +45,9 @@ public class GuiCosmeticArmor extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         // Keep labels short and inside the narrow left column.
         fontRendererObj.drawString("Head", 28, 13, 0x404040);
-        fontRendererObj.drawString("Chest", 28, 35, 0x404040);
-        fontRendererObj.drawString("Legs", 28, 57, 0x404040);
-        fontRendererObj.drawString("Feet", 28, 79, 0x404040);
+        fontRendererObj.drawString("Chest", 28, 31, 0x404040);
+        fontRendererObj.drawString("Legs", 28, 49, 0x404040);
+        fontRendererObj.drawString("Feet", 28, 67, 0x404040);
     }
 
     @Override
