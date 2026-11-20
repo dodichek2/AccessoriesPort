@@ -1,0 +1,11 @@
+key.categories.inventory=Инвентарь
+key.accessoriesport.open=Открыть косметическую броню
+container.accessoriesport.cosmetic_armor=Косметическая броня
+accessoriesport.gui.title=Косметическая броня
+accessoriesport.gui.helmet=Шлем
+accessoriesport.gui.chest=Нагрудник
+accessoriesport.gui.leggings=Поножи
+accessoriesport.gui.boots=Ботинки
+accessoriesport.gui.inventory=Инвентарь
+accessoriesport.gui.vanilla_on=Обычная броня: ВКЛ
+accessoriesport.gui.vanilla_off=Обычная броня: ВЫКЛ

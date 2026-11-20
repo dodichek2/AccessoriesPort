@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "accessoriesport",
+    "name": "Accessories Port",
+    "description": "A Forge 1.7.10 recreation of selected Accessories features, including cosmetic armor slots.",
+    "version": "0.1.0-dev",
+    "mcversion": "1.7.10",
+    "url": "https://github.com/wisp-forest/accessories",
+    "authorList": ["AccessoriesPort contributors"],
+    "credits": "Based on the MIT-licensed Accessories project by Wisp Forest contributors.",
+    "logoFile": "",
+    "screenshots": [],
+    "parent": "",
+    "dependencies": []
+  }
+]
