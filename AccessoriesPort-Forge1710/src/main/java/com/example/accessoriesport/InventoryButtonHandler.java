@@ -15,7 +15,7 @@ public class InventoryButtonHandler {
         int top = (event.gui.height - 166) / 2;
 
         // Diamond helmet icon opens the cosmetic armor page.
-        event.buttonList.add(new IconGuiButton(BUTTON_ID, left + 150, top + 4,
+        event.buttonList.add(new IconGuiButton(BUTTON_ID, left + 153, top + 4,
             18, 18, IconGuiButton.ICON_HELMET));
     }
 
