@@ -24,7 +24,7 @@ public class GuiCosmeticArmor extends GuiContainer {
         super.initGui();
         // Eye of Ender icon toggles whether functional armor is rendered when
         // the matching cosmetic slot is empty. The full button stays in-panel.
-        displayButton = new IconGuiButton(0, guiLeft + 152, guiTop + 7, 18, 18,
+        displayButton = new IconGuiButton(0, guiLeft + 151, guiTop + 7, 18, 18,
             IconGuiButton.ICON_EYE);
         buttonList.add(displayButton);
     }
